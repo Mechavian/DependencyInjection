@@ -17,7 +17,9 @@ namespace Mechavian.Extensions.DependencyInjection
         public void Create_NoPublicConstructor()
         {
             var serviceProvider = Mock.Of<IServiceProvider>();
-            Assert.Throws<InvalidOperationException>(() => serviceProvider.Create<PrivateConstructorService>());
+            var result = serviceProvider.Create<PrivateConstructorService>();
+
+            Assert.NotNull(result);
         }
 
         [Fact]
@@ -69,6 +71,24 @@ namespace Mechavian.Extensions.DependencyInjection
             Assert.Null(result.Service);
         }
 
+        [Fact]
+        public void Create_MultipleConstructors_NoAttribute()
+        {
+            var serviceProvider = Mock.Of<IServiceProvider>();
+            Assert.Throws<InvalidOperationException>(() => serviceProvider.Create<MultipleConstructorsNoAttribService>());
+        }
+
+        [Fact]
+        public void Create_MultipleConstructors_WithAttribute()
+        {
+            var service = new NoParametersService();
+            var serviceProvider = Mock.Of<IServiceProvider>(s => s.GetService(typeof(NoParametersService)) == service);
+            var result = serviceProvider.Create<MultipleConstructorsWithAttribService>();
+
+            Assert.NotNull(result);
+            Assert.Same(service, result.Service);
+        }
+
         class PrivateConstructorService
         {
             private PrivateConstructorService()
@@ -100,6 +120,32 @@ namespace Mechavian.Extensions.DependencyInjection
             public DependantWithDefaultService(NoParametersService service = null)
             {
                 Service = service;
+            }
+        }
+
+        class MultipleConstructorsNoAttribService
+        {
+            public MultipleConstructorsNoAttribService(int value1)
+            {
+            }
+
+            public MultipleConstructorsNoAttribService(IService1 service1)
+            {
+            }
+        }
+
+        class MultipleConstructorsWithAttribService
+        {
+            public NoParametersService Service { get; set; }
+
+            [ServiceConstructor]
+            public MultipleConstructorsWithAttribService(NoParametersService service)
+            {
+                Service = service;
+            }
+
+            public MultipleConstructorsWithAttribService(int value1)
+            {
             }
         }
     }

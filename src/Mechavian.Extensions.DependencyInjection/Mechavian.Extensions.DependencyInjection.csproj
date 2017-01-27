@@ -114,7 +114,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IServiceFactory.cs" />
+    <Compile Include="ServiceAttribute.cs" />
     <Compile Include="ServiceCollectionExtensions.cs" />
+    <Compile Include="ServiceConstructorAttribute.cs" />
+    <Compile Include="ServiceLoadOptions.cs" />
     <Compile Include="ServiceProviderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

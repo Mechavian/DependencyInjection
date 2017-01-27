@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,16 +25,27 @@ namespace Mechavian.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(serviceType));
             }
 
-            var constructor = serviceType.GetConstructors().SingleOrDefault();
-
-            if (constructor == null)
-            {
-                throw new InvalidOperationException($"No Constructor found for type {serviceType.Name}");
-            }
-
+            var constructor = FindConstructor(serviceType);
             var parameters = constructor.GetParameters();
             var args = parameters.Select(p => GetParameterValue(serviceProvider, p)).ToArray();
             return constructor.Invoke(args);
+        }
+
+        private static ConstructorInfo FindConstructor(Type serviceType)
+        {
+            var constructors = serviceType.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (constructors.Length == 1)
+            {
+                return constructors[0];
+            }
+
+            constructors = constructors.Where(c => c.GetCustomAttributes<ServiceConstructorAttribute>().Any()).ToArray();
+            if (constructors.Length == 1)
+            {
+                return constructors[0];
+            }
+
+            throw new InvalidOperationException($"No Constructor found for type {serviceType.Name}. Service must have only one constructor or must use the ServiceConstructorAttribute.");
         }
 
         private static object GetParameterValue(IServiceProvider serviceProvider, ParameterInfo parameter)

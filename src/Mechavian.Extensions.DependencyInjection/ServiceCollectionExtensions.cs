@@ -50,34 +50,4 @@ namespace Mechavian.Extensions.DependencyInjection
             return serviceCollection;
         }
     }
-
-    [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
-    public class ServiceAttribute : Attribute
-    {
-        public Type ServiceType { get; }
-
-        public ServiceLifetime ServiceLifetime { get; set; } = ServiceLifetime.Singleton;
-
-        public Type ServiceFactory { get; set; }
-
-        public ServiceAttribute(Type serviceType)
-        {
-            if (serviceType == null)
-            {
-                throw new ArgumentNullException(nameof(serviceType));
-            }
-
-            ServiceType = serviceType;
-        }
-    }
-
-    public interface IServiceFactory
-    {
-        object Create(IServiceProvider serviceProvider, Type serviceType);
-    }
-
-    public sealed class ServiceLoadOptions
-    {
-        public Func<TypeInfo, bool> TypeFilter { get; set; }
-    }
 }
