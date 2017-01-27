@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-SET DryRun=1
+SET DryRun=0
 
 if "%NugetApiKey%" == "" (
     ECHO "Missing required [NugetApiKey] environment variable"
@@ -37,9 +37,6 @@ if not exist %NugetOutDir% md %NugetOutDir%
 IF !ERRORLEVEL! NEQ 0 goto error
 
 CALL :ExecuteCmd %NugetExe% pack src\Mechavian.Extensions.DependencyInjection\Mechavian.Extensions.DependencyInjection.csproj -OutputDirectory %NugetOutDir% -Version %PkgVersion% -Symbols -IncludeReferencedProjects
-IF !ERRORLEVEL! NEQ 0 goto error
-
-CALL :ExecuteCmd %NugetExe% push "%NugetOutDir:"=%\Mechavian.Extensions.DependencyInjection.%PkgVersion%.nupkg" -ApiKey %NugetApiKey%
 IF !ERRORLEVEL! NEQ 0 goto error
 
 popd
