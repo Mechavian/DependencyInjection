@@ -9,12 +9,21 @@ namespace Mechavian.Extensions.DependencyInjection
     {
         public static T Create<T>(this IServiceProvider serviceProvider)
         {
+            return (T)Create(serviceProvider, typeof(T));
+        }
+
+        public static object Create(this IServiceProvider serviceProvider, Type serviceType)
+        {
             if (serviceProvider == null)
             {
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            var serviceType = typeof(T);
+            if (serviceType == null)
+            {
+                throw new ArgumentNullException(nameof(serviceType));
+            }
+
             var constructor = serviceType.GetConstructors().SingleOrDefault();
 
             if (constructor == null)
@@ -24,7 +33,7 @@ namespace Mechavian.Extensions.DependencyInjection
 
             var parameters = constructor.GetParameters();
             var args = parameters.Select(p => GetParameterValue(serviceProvider, p)).ToArray();
-            return (T)constructor.Invoke(args);
+            return constructor.Invoke(args);
         }
 
         private static object GetParameterValue(IServiceProvider serviceProvider, ParameterInfo parameter)
