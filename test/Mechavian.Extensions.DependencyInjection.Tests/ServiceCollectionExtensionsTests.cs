@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
@@ -98,6 +99,24 @@ namespace Mechavian.Extensions.DependencyInjection
             var service = serviceDescriptor.ImplementationFactory(mockProvider);
             Assert.Same(expectedService, service);
         }
+
+        [Fact]
+        public void AddServicesFromAssembly_MultipleServices()
+        {
+            var serviceCollection = new ServiceCollection();
+            var assembly = GetType().Assembly;
+            var options = new ServiceLoadOptions()
+            {
+                TypeFilter = (t) => t.FullName == typeof(Service1Service).FullName
+            };
+
+            serviceCollection.AddServicesFromAssembly(assembly, options);
+
+            var provider = serviceCollection.BuildServiceProvider();
+            var services = provider.GetServices<IService1>();
+
+            Assert.Equal(3, services.Count());
+        }
     }
 
     public interface IService1
@@ -113,7 +132,7 @@ namespace Mechavian.Extensions.DependencyInjection
         }
     }
 
-    [Service(typeof(Service2Service), ServiceFactory = typeof(Service2Factory))]
+    [Service(typeof(IService1), ServiceFactory = typeof(Service2Factory))]
     public class Service2Service
     {
         private readonly int _value;

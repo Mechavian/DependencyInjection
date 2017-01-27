@@ -35,12 +35,12 @@ namespace Mechavian.Extensions.DependencyInjection
                                    {
                                        // Get factory in the same scope as the service
                                        var serviceFactory = (IServiceFactory)sp.GetService(serviceAttribute.ServiceFactory);
-                                       return serviceFactory.Create(sp, serviceAttribute.ServiceType);
+                                       return serviceFactory.Create(sp, definedType.AsType());
                                    });
                     }
                     else
                     {
-                        factory = (sp) => sp.Create(serviceAttribute.ServiceType);
+                        factory = (sp) => sp.Create(definedType.AsType());
                     }
 
                     serviceCollection.Add(new ServiceDescriptor(serviceAttribute.ServiceType, factory, serviceAttribute.ServiceLifetime));
