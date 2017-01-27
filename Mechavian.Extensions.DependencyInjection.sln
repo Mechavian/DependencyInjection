@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mechavian.Extensions.DependencyInjection", "src\Mechavian.Extensions.DependencyInjection\Mechavian.Extensions.DependencyInjection.csproj", "{8E9E14AF-3963-44E1-A447-6152B9BBEF0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mechavian.Extensions.DependencyInjection.Tests", "test\Mechavian.Extensions.DependencyInjection.Tests\Mechavian.Extensions.DependencyInjection.Tests.csproj", "{F646AD06-323E-4C3C-AA41-F219767D7981}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E9E14AF-3963-44E1-A447-6152B9BBEF0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9E14AF-3963-44E1-A447-6152B9BBEF0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E9E14AF-3963-44E1-A447-6152B9BBEF0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E9E14AF-3963-44E1-A447-6152B9BBEF0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F646AD06-323E-4C3C-AA41-F219767D7981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F646AD06-323E-4C3C-AA41-F219767D7981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F646AD06-323E-4C3C-AA41-F219767D7981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F646AD06-323E-4C3C-AA41-F219767D7981}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
