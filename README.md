@@ -41,7 +41,7 @@ These extensions remove the need for using a bunch of calls to `serviceCollectio
 
 ## Installation
 
-In NuGet package manager, run `Install-Package Microsoft.Extensions.DependencyInjection`.
+In NuGet package manager, run `Install-Package Mechavian.Extensions.DependencyInjection`.
 
 ## License
 
