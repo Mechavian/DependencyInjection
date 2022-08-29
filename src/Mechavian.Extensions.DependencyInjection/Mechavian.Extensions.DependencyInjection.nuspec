@@ -2,18 +2,17 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.1.0</version>
+    <version>$version$</version>
     <title>$id$</title>
-    <authors>Mechavian SC, LLC</authors>
-    <owners>jt000</owners>
+    <authors>$owner$</authors>
+    <owners>$owner$</owners>
     <licenseUrl>https://github.com/Mechavian/DependencyInjection/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Mechavian/DependencyInjection</projectUrl>
-    <iconUrl>https://www.mechavian.com/images/fi/favicon-32x32.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Extensions on top of the Microsoft.Extensions.DependencyInjection.Abstractions framework to provide more dynamic injections of services through reflection.</description>
-    <copyright>Copyright 2017</copyright>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
     <dependencies>
-      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="1.1.0" />
+      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="6.0.0" />
     </dependencies>
   </metadata>
 </package>

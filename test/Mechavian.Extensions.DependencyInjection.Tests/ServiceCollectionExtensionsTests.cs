@@ -93,7 +93,7 @@ namespace Mechavian.Extensions.DependencyInjection
             var result = services.AddServicesFromAssembly(assembly, options);
 
             Assert.Same(services, result);
-            Assert.Equal(1, descriptors.Count);
+            Assert.Single(descriptors);
 
             var serviceDescriptor = descriptors[0];
             var service = serviceDescriptor.ImplementationFactory(mockProvider);
