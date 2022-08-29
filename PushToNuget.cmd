@@ -13,7 +13,7 @@ pushd %~dp0%
 CALL :ExecuteCmd dotnet restore
 IF !ERRORLEVEL! NEQ 0 goto error
 
-CALL :ExecuteCmd dotnet version -f src\Mechavian.Extensions.DependencyInjection\Mechavian.Extensions.DependencyInjection.csproj patch
+CALL :ExecuteCmd dotnet version -s -f src\Mechavian.Extensions.DependencyInjection\Mechavian.Extensions.DependencyInjection.csproj patch
 IF !ERRORLEVEL! NEQ 0 goto error
 
 CALL :ExecuteCmd dotnet build -c Release
@@ -22,7 +22,7 @@ IF !ERRORLEVEL! NEQ 0 goto error
 CALL :ExecuteCmd dotnet test -c Release
 IF !ERRORLEVEL! NEQ 0 goto error
 
-CALL :ExecuteCmd dotnet pack -c Release
+CALL :ExecuteCmd dotnet pack -c Release --include-symbols
 IF !ERRORLEVEL! NEQ 0 goto error
 
 popd
