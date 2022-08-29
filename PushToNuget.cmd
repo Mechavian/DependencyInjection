@@ -3,11 +3,6 @@ setlocal enabledelayedexpansion
 
 SET DryRun=0
 
-if "%PkgVersion%" == "" (
-    ECHO "Missing required [PkgVersion] environment variable"
-    GOTO :error
-)
-
 pushd %~dp0%
 
 CALL :ExecuteCmd dotnet restore
