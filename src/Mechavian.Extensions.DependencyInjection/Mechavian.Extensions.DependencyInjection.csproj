@@ -20,7 +20,7 @@
 
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <NuspecFile>Mechavian.Extensions.DependencyInjection.nuspec</NuspecFile>
-    <NuspecProperties>id=$(AssemblyName);version=$(AssemblyVersion);description=$(Description);owner=$(Company);copyright=$(Copyright)</NuspecProperties>
+    <NuspecProperties>configuration=$(Configuration);id=$(AssemblyName);version=$(AssemblyVersion);description=$(Description);owner=$(Company);copyright=$(Copyright);branch=$(BranchName);commit=$(Commit)</NuspecProperties>
 
     <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
   </PropertyGroup>
