@@ -3,40 +3,26 @@ setlocal enabledelayedexpansion
 
 SET DryRun=0
 
-if "%NugetApiKey%" == "" (
-    ECHO "Missing required [NugetApiKey] environment variable"
-    GOTO :error
-)
-
-if "%NugetExe%" == "" (
-    ECHO "Missing required [NugetExe] environment variable"
-    GOTO :error
-)
-
 if "%PkgVersion%" == "" (
     ECHO "Missing required [PkgVersion] environment variable"
     GOTO :error
 )
 
-if "%NugetOutDir%" == "" (
-    SET NugetOutDir="%TEMP:"=%\NugetPackages"
-)
-
 pushd %~dp0%
 
-CALL :ExecuteCmd %NugetExe% restore Mechavian.Extensions.DependencyInjection.sln
+CALL :ExecuteCmd dotnet restore
 IF !ERRORLEVEL! NEQ 0 goto error
 
-CALL :ExecuteCmd msbuild /t:Rebuild /p:Configuration=Release Mechavian.Extensions.DependencyInjection.sln
+CALL :ExecuteCmd dotnet version -f src\Mechavian.Extensions.DependencyInjection\Mechavian.Extensions.DependencyInjection.csproj patch
 IF !ERRORLEVEL! NEQ 0 goto error
 
-CALL :ExecuteCmd packages\xunit.runner.console.2.1.0\tools\xunit.console.exe test\Mechavian.Extensions.DependencyInjection.Tests\bin\Release\Mechavian.Extensions.DependencyInjection.Tests.dll
+CALL :ExecuteCmd dotnet build -c Release
 IF !ERRORLEVEL! NEQ 0 goto error
 
-if not exist %NugetOutDir% md %NugetOutDir%
+CALL :ExecuteCmd dotnet test -c Release
 IF !ERRORLEVEL! NEQ 0 goto error
 
-CALL :ExecuteCmd %NugetExe% pack src\Mechavian.Extensions.DependencyInjection\Mechavian.Extensions.DependencyInjection.csproj -OutputDirectory %NugetOutDir% -Version %PkgVersion% -Symbols -IncludeReferencedProjects
+CALL :ExecuteCmd dotnet pack -c Release
 IF !ERRORLEVEL! NEQ 0 goto error
 
 popd
