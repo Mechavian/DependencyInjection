@@ -45,4 +45,4 @@ In NuGet package manager, run `Install-Package Mechavian.Extensions.DependencyIn
 
 ## License
 
-[MIT License](LICENSE) - Copyright (c) 2017 Mechavian SC, LLC
+[MIT License](LICENSE) - Copyright (c) 2022

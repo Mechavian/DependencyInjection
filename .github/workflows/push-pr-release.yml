@@ -1,0 +1,38 @@
+name: Push, PR, and Release Action
+
+env:
+  dotnet-version: '6.0.x'
+
+on:
+  push: 
+    branches: [ master ]
+
+  pull_request_target:
+    branches: [ master ]
+
+  release:
+    types: [created]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --configuration Release --no-restore --verbosity normal
+      - name: Pack
+        run: dotnet pack -c Release --include-symbols -p:BranchName=$GITHUB_REF_NAME -p:Commit=$GITHUB_SHA
+      - name: Publish
+        if: env.GITHUB_EVENT_NAME == 'release'
+        run: echo "dotnet publish yadayada"
+
