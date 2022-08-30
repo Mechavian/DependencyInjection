@@ -4,13 +4,11 @@ env:
   dotnet-version: '6.0.x'
 
 on:
-  push:
-    branches:
-      - "*"
+  push: 
+    branches: [ master ]
 
   pull_request_target:
-    branches:
-      - "master"
+    branches: [ master ]
 
   release:
     types: [created]
