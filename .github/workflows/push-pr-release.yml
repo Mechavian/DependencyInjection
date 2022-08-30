@@ -33,6 +33,6 @@ jobs:
       - name: Pack
         run: dotnet pack -c Release --include-symbols -p:BranchName=$GITHUB_REF_NAME -p:Commit=$GITHUB_SHA
       - name: Publish
-        if: env.GITHUB_EVENT_NAME == 'release'
+        if: github.event_name == 'release'
         run: echo "dotnet publish yadayada"
 
